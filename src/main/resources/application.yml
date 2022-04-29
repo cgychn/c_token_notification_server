@@ -1,0 +1,22 @@
+server:
+  port: 9097
+
+spring:
+  application:
+    name: c-talk-notification-server
+
+eureka:
+  instance:
+    hostname: 10.0.0.37
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://10.0.0.37:9099/eureka/
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 2000
+        readTimeout: 60000
+
