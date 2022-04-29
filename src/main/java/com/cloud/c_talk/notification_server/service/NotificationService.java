@@ -1,6 +1,7 @@
 package com.cloud.c_talk.notification_server.service;
 
 import com.cloud.c_talk.notification_server.dealer.MessageBoxDealer;
+import com.cloud.c_talk.notification_server.entity.PackagedInteger;
 import com.cloud.c_talk.notification_server.websocket.WebSocketEventBus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,22 +14,6 @@ import java.util.List;
 public class NotificationService {
 
     private final Logger logger = LoggerFactory.getLogger(NotificationService.class);
-
-    private static class PackagedInteger {
-        private int i = 0;
-
-        public int getI() {
-            return i;
-        }
-
-        public synchronized void add() {
-            i ++;
-        }
-
-        public synchronized void reset () {
-            i = 0;
-        }
-    }
 
     private final HashMap<String, HashMap<String, PackagedInteger>> unReadMessageCount = new HashMap<>(1024);
 
@@ -87,6 +72,15 @@ public class NotificationService {
      */
     public int getUnReadMessageCount (String mainUsername, String toUsername) {
         return MessageBoxDealer.getUnReadMessageCount(mainUsername, toUsername);
+    }
+
+    /**
+     * 获取消息盒子
+     * @param username
+     * @return
+     */
+    public HashMap<String, PackagedInteger> getMessageBoxByMainUsername (String username) {
+        return MessageBoxDealer.getMessageBoxByMainUsername(username);
     }
 
 }

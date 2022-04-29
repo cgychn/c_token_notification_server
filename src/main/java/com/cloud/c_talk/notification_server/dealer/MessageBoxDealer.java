@@ -1,26 +1,21 @@
 package com.cloud.c_talk.notification_server.dealer;
 
+import com.cloud.c_talk.notification_server.entity.PackagedInteger;
+
 import java.util.HashMap;
 
 public class MessageBoxDealer {
 
-    private static class PackagedInteger {
-        private int i = 0;
-
-        public int getI() {
-            return i;
-        }
-
-        public synchronized void add() {
-            i ++;
-        }
-
-        public synchronized void reset () {
-            i = 0;
-        }
-    }
-
     private static final HashMap<String, HashMap<String, PackagedInteger>> unReadMessageCount = new HashMap<>(1024);
+
+    /**
+     * 获取某个账号的消息盒子
+     * @param username
+     * @return
+     */
+    public static HashMap<String, PackagedInteger> getMessageBoxByMainUsername(String username) {
+        return unReadMessageCount.get(username);
+    }
 
     /**
      * 增加未读数量
